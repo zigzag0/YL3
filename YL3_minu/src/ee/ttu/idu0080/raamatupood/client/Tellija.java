@@ -1,6 +1,7 @@
 package ee.ttu.idu0080.raamatupood.client;
 
 import java.math.BigDecimal;
+
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -23,10 +24,6 @@ import ee.ttu.idu0080.raamatupood.types.Toode;
 
 // JMS sõnumite tootja. Ühendub brokeri url-ile
 
-
-
-
-
 public class Tellija {
 	private static final Logger log = Logger.getLogger(Tellija.class);
 	public static final String SUBJECT = "Tekstide.saatmine"; // järjekorra nimi
@@ -38,11 +35,11 @@ public class Tellija {
 
 	private int messageCount = 10;
 	private long timeToLive = 1000000;
-	private String url = EmbeddedBroker.URL;	// JMS serveriasukoht
+	private String url = EmbeddedBroker.URL; // JMS serveriasukoht
 
 	public static void main(String[] args) {
 		Tellija producerTool = new Tellija();
-		producerTool.run();		// Sõnumi saatmine
+		producerTool.run(); // Sõnumi saatmine
 	}
 
 	public void run() {
@@ -80,20 +77,21 @@ public class Tellija {
 
 			// 4. teadete saatmine
 			sendTellimus(session, producer);
-/*			sendLoop(session, producer);
-			TextMessage message = session.createTextMessage("Tere SUVII!");
-			log.debug("Saadan sõnumi: " + message.getText());
-			producer.send(message);
-			*/
+			/*
+			 * sendLoop(session, producer); TextMessage message =
+			 * session.createTextMessage("Tere SUVII!");
+			 * log.debug("Saadan sõnumi: " + message.getText());
+			 * producer.send(message);
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-//	protected void sendLoop(Session session, MessageProducer producer)
+	// protected void sendLoop(Session session, MessageProducer producer)
 
-	public void getAnswer(Session session){
+	public void getAnswer(Session session) {
 		try {
 
 			log.info("Consuming queue : " + SUBJECT2);
@@ -111,6 +109,7 @@ public class Tellija {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Käivitatakse, kui tuleb sõnum
 	 */
@@ -137,6 +136,7 @@ public class Tellija {
 			}
 		}
 	}
+
 	/**
 	 * Käivitatakse, kui tuleb viga.
 	 */
@@ -147,46 +147,42 @@ public class Tellija {
 			ex.printStackTrace();
 		}
 	}
+
 	protected void sendTellimus(Session session, MessageProducer producer)
 			throws Exception {
-/*
-		for (int i = 0; i < messageCount || messageCount == 0; i++) {
-			ObjectMessage objectMessage = session.createObjectMessage();
-			objectMessage.setObject(new Car(5)); // peab olema Serializable
-*/
+		/*
+		 * for (int i = 0; i < messageCount || messageCount == 0; i++) {
+		 * ObjectMessage objectMessage = session.createObjectMessage();
+		 * objectMessage.setObject(new Car(5)); // peab olema Serializable
+		 */
 
-			ObjectMessage objectMessage = session.createObjectMessage();
-			BigDecimal hind1 = new BigDecimal("20.65");
-			Toode toode1=new Toode(1,"Saunajooga",hind1);
-			BigDecimal hind2=new BigDecimal("26.67");
-			Toode toode2=new Toode(2,"Looduslik toit. Ehe ja tervendav.",hind2);
-			TellimuseRida tellimuserida1=new TellimuseRida(toode1,4);
-			TellimuseRida tellimuserida2=new TellimuseRida(toode2,2);
-			Tellimus tellimus= new Tellimus();
-			tellimus.addTellimuseRida(tellimuserida1);
-			tellimus.addTellimuseRida(tellimuserida2);
-			objectMessage.setObject(tellimus); // peab olema Serializable
-			producer.send(objectMessage);
-			log.debug("Saadan tellimuse andmed");
-			getAnswer(session);
+		ObjectMessage objectMessage = session.createObjectMessage();
+		BigDecimal hind1 = new BigDecimal("20.65");
+		Toode toode1 = new Toode(1, "Saunajooga", hind1);
+		BigDecimal hind2 = new BigDecimal("26.67");
+		Toode toode2 = new Toode(2, "Looduslik toit. Ehe ja tervendav.", hind2);
+		TellimuseRida tellimuserida1 = new TellimuseRida(toode1, 4);
+		TellimuseRida tellimuserida2 = new TellimuseRida(toode2, 2);
+		Tellimus tellimus = new Tellimus();
+		tellimus.addTellimuseRida(tellimuserida1);
+		tellimus.addTellimuseRida(tellimuserida2);
+		objectMessage.setObject(tellimus); // peab olema Serializable
+		producer.send(objectMessage);
+		log.debug("Saadan tellimuse andmed");
+		getAnswer(session);
 
-
-
-/*
-			TextMessage message = session
-					.createTextMessage(createMessageText(i));
-			log.debug("Sending message: " + message.getText());
-			producer.send(message);
-*/
-			// ootab 1 sekundi
-			Thread.sleep(sleepTime);
-		}
+		/*
+		 * TextMessage message = session
+		 * .createTextMessage(createMessageText(i));
+		 * log.debug("Sending message: " + message.getText());
+		 * producer.send(message);
+		 */
+		// ootab 1 sekundi
+		Thread.sleep(sleepTime);
 	}
+}
 /*
-	private String createMessageText(int index) {
-		return "Message: " + index + " sent at: " + (new Date()).toString();
-	}
-*/
-
-
+ * private String createMessageText(int index) { return "Message: " + index +
+ * " sent at: " + (new Date()).toString(); }
+ */
 
