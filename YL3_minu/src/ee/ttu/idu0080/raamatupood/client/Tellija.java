@@ -33,7 +33,7 @@ public class Tellija {
 
 	long sleepTime = 1000; // 1000ms
 
-	private int messageCount = 10;
+//	private int messageCount = 10;
 	private long timeToLive = 1000000;
 	private String url = EmbeddedBroker.URL; // JMS serveriasukoht
 
@@ -156,14 +156,30 @@ public class Tellija {
 		 * objectMessage.setObject(new Car(5)); // peab olema Serializable
 		 */
 
+
+//Tellimuse seadistus on SIIN:
 		ObjectMessage objectMessage = session.createObjectMessage();
+
 		BigDecimal hind1 = new BigDecimal("20.65");
 		Toode toode1 = new Toode(1, "Saunajooga", hind1);
+
 		BigDecimal hind2 = new BigDecimal("26.67");
 		Toode toode2 = new Toode(2, "Looduslik toit. Ehe ja tervendav.", hind2);
+
+		BigDecimal hind3 = new BigDecimal("20.65");
+		Toode toode3 = new Toode(1, "Saunajooga", hind3);
+
+		BigDecimal hind4 = new BigDecimal("20.65");
+		Toode toode4 = new Toode(1, "Saunajooga", hind4);
+
+		BigDecimal hind5 = new BigDecimal("20.65");
+		Toode toode5 = new Toode(1, "Saunajooga", hind5);
+
+
 		TellimuseRida tellimuserida1 = new TellimuseRida(toode1, 4);
 		TellimuseRida tellimuserida2 = new TellimuseRida(toode2, 2);
 		Tellimus tellimus = new Tellimus();
+
 		tellimus.addTellimuseRida(tellimuserida1);
 		tellimus.addTellimuseRida(tellimuserida2);
 		objectMessage.setObject(tellimus); // peab olema Serializable

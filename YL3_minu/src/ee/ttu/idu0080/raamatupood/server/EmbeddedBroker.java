@@ -3,13 +3,8 @@ package ee.ttu.idu0080.raamatupood.server;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.log4j.Logger;
 
-/**
- * Broker - vahendaja. Brokeri kÃ¼lge Ã¼henduvad sÃµnumi saatjad ja
- * vastuvÃµtjad.
- * 
- * @author Allar Tammik
- * @date 08.03.2010
- */
+// Broker - vahendaja. Brokeri külge ühenduvad sõnumi saatjad ja vastuvõtjad.
+
 public final class EmbeddedBroker {
 	private static final Logger log = Logger.getLogger(EmbeddedBroker.class);
 	public static final String PORT = "61618";
