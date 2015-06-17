@@ -157,44 +157,52 @@ public class Tellija {
 		 */
 
 
-//Tellimuse seadistus on SIIN:
+//Raamatute tellimuse seadistus on SIIN: hind ja toode
 		ObjectMessage objectMessage = session.createObjectMessage();
 
-		BigDecimal hind1 = new BigDecimal("20.65");
-		Toode toode1 = new Toode(1, "Saunajooga", hind1);
+		BigDecimal hind1 = new BigDecimal("100.00");
+		Toode toode1 = new Toode(1, "Book nr.1", hind1);
 
-		BigDecimal hind2 = new BigDecimal("26.67");
-		Toode toode2 = new Toode(2, "Looduslik toit. Ehe ja tervendav.", hind2);
+		BigDecimal hind2 = new BigDecimal("50.50");
+		Toode toode2 = new Toode(2, "Book nr.2", hind2);
 
-		BigDecimal hind3 = new BigDecimal("20.65");
-		Toode toode3 = new Toode(1, "Saunajooga", hind3);
+		BigDecimal hind3 = new BigDecimal("25.00");
+		Toode toode3 = new Toode(3, "Book nr.3", hind3);
 
-		BigDecimal hind4 = new BigDecimal("20.65");
-		Toode toode4 = new Toode(1, "Saunajooga", hind4);
+		BigDecimal hind4 = new BigDecimal("15.15");
+		Toode toode4 = new Toode(4, "Book nr.4", hind4);
 
-		BigDecimal hind5 = new BigDecimal("20.65");
-		Toode toode5 = new Toode(1, "Saunajooga", hind5);
+		BigDecimal hind5 = new BigDecimal("75.45");
+		Toode toode5 = new Toode(5, "Book nr.5", hind5);
 
+// Tellimuse Leht Raamat ja Kogus.
+		TellimuseRida tellimuserida1 = new TellimuseRida(toode1, 2);
+		TellimuseRida tellimuserida2 = new TellimuseRida(toode2, 3);
+		TellimuseRida tellimuserida3 = new TellimuseRida(toode3, 5);
+		TellimuseRida tellimuserida4 = new TellimuseRida(toode4, 4);
+		TellimuseRida tellimuserida5 = new TellimuseRida(toode5, 1);
 
-		TellimuseRida tellimuserida1 = new TellimuseRida(toode1, 4);
-		TellimuseRida tellimuserida2 = new TellimuseRida(toode2, 2);
-		Tellimus tellimus = new Tellimus();
+			Tellimus tellimus = new Tellimus();
 
+// Tellimis Lehe koostamine
 		tellimus.addTellimuseRida(tellimuserida1);
 		tellimus.addTellimuseRida(tellimuserida2);
-		objectMessage.setObject(tellimus); // peab olema Serializable
-		producer.send(objectMessage);
-		log.debug("Saadan tellimuse andmed");
-		getAnswer(session);
+		tellimus.addTellimuseRida(tellimuserida3);
+		tellimus.addTellimuseRida(tellimuserida4);
+		tellimus.addTellimuseRida(tellimuserida5);
+			objectMessage.setObject(tellimus); // peab olema Serializable
+			producer.send(objectMessage);
+			log.debug("Saadan tellimuse andmed");
+			getAnswer(session);
 
-		/*
-		 * TextMessage message = session
-		 * .createTextMessage(createMessageText(i));
-		 * log.debug("Sending message: " + message.getText());
-		 * producer.send(message);
-		 */
+/*
+		TextMessage message = session.createTextMessage(createMessageText(i));
+		log.debug("Sending message: " + message.getText());
+		 producer.send(message);
+
 		// ootab 1 sekundi
 		Thread.sleep(sleepTime);
+*/
 	}
 }
 /*

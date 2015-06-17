@@ -3,7 +3,7 @@ package ee.ttu.idu0080.raamatupood.types;
 import java.io.Serializable;
 
 public class TellimuseRida implements Serializable {
-	//private static final long serialVersionUID = 5231541610713209017L;
+
 	private static final long serialVersionUID = 25;
 	Toode toode = null;
 	long kogus;
